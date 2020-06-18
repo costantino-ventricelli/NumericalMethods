@@ -5,56 +5,67 @@
 
 
 class RealMinMax:
+    __BASE = 2
+    __SIGN_BIT = 1
+    __DOUBLE_CHARACTERISTIC = 11
+    __SINGLE_CHARACTERISTIC = 8
+    __HALF_CHARACTERISTIC = 5
+    __DOUBLE_PRECISION = 64
+    __SINGLE_PRECISION = 32
+    __HALF_PRECISION = 16
 
-    def __init__(self):
-        print("Precision calculator")
+    def __init__(self, bit):
+        print("Calcolo valori per: ", bit)
+        if bit == RealMinMax.__DOUBLE_PRECISION:
+            self.__bit = bit
+            self.__characteristic = RealMinMax.__DOUBLE_CHARACTERISTIC
+        elif bit == RealMinMax.__SINGLE_PRECISION:
+            self.__bit = bit
+            self.__characteristic = RealMinMax.__SINGLE_CHARACTERISTIC
+        elif bit == RealMinMax.__HALF_PRECISION:
+            self.__bit = bit
+            self.__characteristic = RealMinMax.__HALF_CHARACTERISTIC
+        else:
+            print("Valore inserito per il bit non valido")
+            self.__bit = 0
+            self.__characteristic = 0
+        self.__max_value = 0.00
+        self.__min_value = 0.00
+        self.__mantissa = 0
+        self.__epsilon = 0.00
 
-    #   Il valore di RealMin ha come mantissa un valore pari a 1, in quanto é formato nel seguente modo:
-    #   Rmin = 1.0000...000, dove gli zeri sono ripetuti 53 volte in questo caso, 53 in quanto nella rappresentazione
-    #   normale dei numeri in floating point il primo valore è sempre uno, quindi dato questo come vero sempre si può
-    #   iniziare a dare valore alle cifre della mantissa escluendo la prima, quindi il numero di cifre della mantissa
-    #   diventa t + 1 => 52 + 1.
-    #   Nel calcolo del RealMax invece avremo una situazione del genere 1.1111...111 dove gli 1 sono ripetuti 53 volte,
-    #   raggiungendo un valore prossimo a 2, al quale aggiungendo 0.0000...001, dove gli 0 sono ripetuti t - 1 volte,
-    #   ci darà 2 come risultato, quindi scriviamo:
-    #   2 = 1.1111...111 + 0.0000...001 = RealMax + 2^(-t) =>
-    #   => RealMax = 2 - 2^(-t).
-    @staticmethod
-    def calculate_double_precision():
-        print("Double precision")
-        min = -1022
-        max = 1023
-        t = 52
-        print("Real min: ", 2 ** min)
-        print("Real max: ", (2 - 2 ** (-t)) * 2 ** max)
-        print("Epsilon value: ", (2 ** (-t)), "\n")
+    #   Il calcolo dei valori reali di massimo e minimo inizia calcolando il numero di cifre che compongono la mantissa,
+    #   successivamente vendono individuati i valori limite della caratteristica, lower_bound e upper_bound, per farlo
+    #   viene prima calcolato l'intero range del sistema di numerazione, full_interval, al quale viene sottatro 3 per
+    #   eliminare gli estremi, che vengono usati per individuare i numeri speciali come 0 e infinito, e un altro valore
+    #   per includere lo 0 nella numerazione.
+    #   Dopo aver individuato i limiti superiore e inferiore si procede con il calcolo:
+    #   - max_value: il calcolo (BASE - BASE^(mantissa)) deriva dal calcolo teorico che prevede:
+    #       RealMax = 1.111...111 + 0.000...001, dove 111...111 viene ripetuto t volte e 000.001 gli 0 sono ripetuti
+    #       t - 1 volte.
+    #       Questa uguaglianza viene poi impostata:
+    #           BASE = RealMax + BASE^(-t) => RealMax = BASE - BASE^(-t);
+    #   - min_value: il calcolo è molto più semplice e prevede:
+    #       BASE^(lower_bound);
+    #   - epsilon: viene presa la base ed elevata alla -mantissa per ottenere la distanza tra 1 e il primo sucessore
+    #       rappresentabile: BASE^(-mantissa)
+    def calculate_max_min_epsilon(self):
+        if self.__bit != 0:
+            self.__bit = self.__bit - RealMinMax.__SIGN_BIT
+            self.__mantissa = self.__bit - self.__characteristic
+            full_interval = (RealMinMax.__BASE ** self.__characteristic) - 3
+            lower_bound = (-1) * int(full_interval / 2)
+            upper_bound = full_interval - (-lower_bound)
+            self.__max_value = ((RealMinMax.__BASE - RealMinMax.__BASE ** (-self.__mantissa))
+                                * RealMinMax.__BASE ** upper_bound)
+            self.__min_value = RealMinMax.__BASE ** lower_bound
+            self.__epsilon = RealMinMax.__BASE ** (-self.__mantissa)
 
-    #   Per le altre precisioni vale lo stesso concetto precedente solo che invece dei 64 bit iniziali adesso ne
-    #   abbiamo 32, quindi:
-    #   32 - 1 = 31, dove 1 è il segno
-    #   31 - 8 = 23, dove 8 è la caratteristica, o esponente, e 23 è la mantissa.
-    #   2^8 = 256 - 1, sono gli esponenti rappresentabili: 255
-    #   255 - 2 = 253, dove i 2 sono gli estremi che verranno usati per altro
-    #   (255 / 2) = 126 divisione intera, questo sarà l'esponente del numero minimo rappresentabile
-    #   255 - 126 = 127 il quale sarà l'esponente del numero massimo rappresentabile.
-    @staticmethod
-    def calculate_single_precision():
-        print("Single precision")
-        min = -126
-        max = 127
-        t = 23
-        print("Real min: ", 2 ** min)
-        print("Real max: ", (2 - 2 ** (-t)) * 2 ** max)
-        print("Epsilon value: ", (2 ** (-t)), "\n")
+    def get_real_max(self):
+        return self.__max_value
 
-    #   Anche in questo metodo valgono tutte le considerazioni dei due metodi precedenti, calcolando però il tutto su
-    #   16 bit totali.
-    @staticmethod
-    def calculate_half_precision():
-        print("Half precision")
-        min = -14
-        max = 15
-        t = 10
-        print("Real min: ", 2 ** min)
-        print("Real max: ", (2 - 2 ** (-t)) * 2 ** max)
-        print("Epsilon value: ", (2 ** (-t)), "\n")
+    def get_real_min(self):
+        return self.__min_value
+
+    def get_real_epsilon(self):
+        return self.__epsilon

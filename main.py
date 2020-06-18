@@ -13,10 +13,13 @@ def epsilon_machine_calculus():
 
 
 def real_min_max_calculus():
-    real_min_max = RealMinMax()
-    real_min_max.calculate_double_precision()
-    real_min_max.calculate_single_precision()
-    real_min_max.calculate_half_precision()
+    array_of_bit = [64, 32, 16, 0]
+    for item in array_of_bit:
+        double_precision = RealMinMax(item)
+        double_precision.calculate_max_min_epsilon()
+        print("Real max: ", double_precision.get_real_max())
+        print("Real min: ", double_precision.get_real_min())
+        print("Epsilon: ", double_precision.get_real_epsilon(), "\n")
 
 
 def main():
