@@ -2,6 +2,7 @@ from exercises.epsilon_machine import EpsilonMachine
 from exercises.real_min_max import RealMinMax
 from exercises.sum_conditioning import SumConditioning
 from exercises.product_conditioning import ProductConditioning
+from exercises.function_conditioning import FunctionConditioning
 
 
 def epsilon_machine_calculus():
@@ -32,12 +33,12 @@ def sum_conditioning():
     print("Inserisci la perturbazione: ")
     perturbation = float(input())
     problem = SumConditioning(first_number, second_number, perturbation)
-    print("Errore assoluto prodotto: %15.12f" %problem.get_absolute_error_sum())
-    print("Errore relativo prodotto: %15.12f" %problem.get_relative_error_sum())
-    print("Errore assoluto primo numero: %15.12f" %problem.get_first_number_absolute_error())
-    print("Errore relativo primo numero: %15.12f" %problem.get_second_number_relative_error())
-    print("Errore assoluto secondo numero: %15.12f" %problem.get_second_number_absolute_error())
-    print("Errore relativo secondo numero: %15.12f" %problem.get_second_number_relative_error())
+    print("Errore assoluto prodotto: %15.12f" % problem.get_absolute_error_sum())
+    print("Errore relativo prodotto: %15.12f" % problem.get_relative_error_sum())
+    print("Errore assoluto primo numero: %15.12f" % problem.get_first_number_absolute_error())
+    print("Errore relativo primo numero: %15.12f" % problem.get_second_number_relative_error())
+    print("Errore assoluto secondo numero: %15.12f" % problem.get_second_number_absolute_error())
+    print("Errore relativo secondo numero: %15.12f" % problem.get_second_number_relative_error())
 
 
 def product_conditioning():
@@ -57,7 +58,16 @@ def product_conditioning():
 
 
 def function_conditioning():
-    return 0
+    print("Inserisci il valore di x0 per il quale vuoi calcolare le due funzioni\n"
+          "- radice\n"
+          "- tangente\n")
+    number = input("Inserisci: ")
+    perturbation = input("Inserisci il valore della perturbazione per x0: ")
+    problem = FunctionConditioning(float(number), float(perturbation))
+    print("Errore assoluto della funzione radice: %15.12f" % problem.get_absolute_error_square())
+    print("Errore relativo della funzione radice: %15.12f" % problem.get_relative_error_square())
+    print("Errore assoluto della funzione tangente: %15.12f" % problem.get_absolute_error_tan())
+    print("Errore relativo della funzione tangente: %15.12f" % problem.get_relative_error_tan())
 
 
 def main():
