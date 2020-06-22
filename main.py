@@ -3,6 +3,7 @@ from exercises.real_min_max import RealMinMax
 from exercises.sum_conditioning import SumConditioning
 from exercises.product_conditioning import ProductConditioning
 from exercises.function_conditioning import FunctionConditioning
+from exercises.product_sum_test import ProductSumTest
 
 
 def epsilon_machine_calculus():
@@ -70,13 +71,32 @@ def function_conditioning():
     print("Errore relativo della funzione tangente: %15.12f" % problem.get_relative_error_tan())
 
 
+def sum_product_test():
+    product_sum_test = ProductSumTest(input("Inserisci il numero di volte per cui calcolare i test: "))
+    product_sum_test.calculate_machine_products_sum()
+    product_sum_test.calculate_real_products_sum()
+    print("Il valore delle somme in doppia precisione per il numero macchina è: ",
+          product_sum_test.get_machine_double_sum(), " mentre il prodotto è: ", product_sum_test.get_machine_double_product())
+    print("Il valore delle somme in doppia precisione per il numero reale è: ",
+          product_sum_test.get_real_double_sum(), " mentre il prodotto è: ", product_sum_test.get_real_double_product(), "\n")
+    print("Il valore delle somme in singola precisione per il numero macchina è: ",
+          product_sum_test.get_machine_single_sum(), " mentre il prodotto è: ", product_sum_test.get_machine_single_product())
+    print("Il valore delle somme in singola precisione per il numero reale è: ",
+          product_sum_test.get_real_single_sum(), " mentre il prodotto è: ", product_sum_test.get_real_single_product(), "\n")
+    print("Il valore delle somme in mezza precisione per il numero macchina è: ",
+          product_sum_test.get_machine_half_sum(), " mentre il prodotto è: ", product_sum_test.get_machine_half_product())
+    print("Il valore delle somme in mezza precisione per il numero reale è: ",
+          product_sum_test.get_real_half_sum(), "mentre il prodotto è: ", product_sum_test.get_real_half_product(), "\n")
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1) Condizionamento somma;\n"
           "2) Condizionamento prodotto;\n"
           "3) Condizionamento calcolo funzioni;\n"
           "4) Epsilon machine;\n"
-          "5) Minimo e massimo macchina;\n")
+          "5) Minimo e massimo macchina;\n"
+          "6) Somma prodotto differenza;\n")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -87,7 +107,8 @@ def switch(select):
         2: product_conditioning,
         3: function_conditioning,
         4: epsilon_machine_calculus,
-        5: real_min_max_calculus
+        5: real_min_max_calculus,
+        6: sum_product_test
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
