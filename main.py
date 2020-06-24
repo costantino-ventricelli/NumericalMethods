@@ -4,6 +4,7 @@ from exercises.sum_conditioning import SumConditioning
 from exercises.product_conditioning import ProductConditioning
 from exercises.function_conditioning import FunctionConditioning
 from exercises.product_sum_test import ProductSumTest
+from exercises.rotation import Rotation
 
 
 def epsilon_machine_calculus():
@@ -89,6 +90,11 @@ def sum_product_test():
           product_sum_test.get_real_half_sum(), "mentre il prodotto è: ", product_sum_test.get_real_half_product(), "\n")
 
 
+def rotate_image():
+    rotation = Rotation(int(input("Inserisci l'angolo di rotazione dell'immagine: ")))
+    rotation.rotate()
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1) Condizionamento somma;\n"
@@ -96,7 +102,8 @@ def main():
           "3) Condizionamento calcolo funzioni;\n"
           "4) Epsilon machine;\n"
           "5) Minimo e massimo macchina;\n"
-          "6) Somma prodotto differenza;\n")
+          "6) Somma prodotto differenza;\n"
+          "7) Ruota immagine;\n")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -108,7 +115,8 @@ def switch(select):
         3: function_conditioning,
         4: epsilon_machine_calculus,
         5: real_min_max_calculus,
-        6: sum_product_test
+        6: sum_product_test,
+        7: rotate_image
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
