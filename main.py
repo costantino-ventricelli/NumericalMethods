@@ -5,6 +5,7 @@ from exercises.product_conditioning import ProductConditioning
 from exercises.function_conditioning import FunctionConditioning
 from exercises.product_sum_test import ProductSumTest
 from exercises.rotation import Rotation
+from exercises.vandermonde_matrix import VandermondeMatrix
 
 
 def epsilon_machine_calculus():
@@ -95,6 +96,14 @@ def rotate_image():
     rotation.rotate()
 
 
+def vandermonde_condition():
+    vandermonde = VandermondeMatrix(int(input("Inserisci la dimensione della mantrice: ")))
+    vandermonde.calculate_condition_number()
+    print("Il numero di condizione K(A) per la matrice: \n"
+          , vandermonde.get_matrix(), "\nè: ",
+          vandermonde.get_condition_number(), "\nL'alfa della mantrice è: ", vandermonde.get_alfa())
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1) Condizionamento somma;\n"
@@ -103,7 +112,8 @@ def main():
           "4) Epsilon machine;\n"
           "5) Minimo e massimo macchina;\n"
           "6) Somma prodotto differenza;\n"
-          "7) Ruota immagine;\n")
+          "7) Ruota immagine;\n"
+          "8) Matrice di Vandermonde;\n")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -116,7 +126,8 @@ def switch(select):
         4: epsilon_machine_calculus,
         5: real_min_max_calculus,
         6: sum_product_test,
-        7: rotate_image
+        7: rotate_image,
+        8: vandermonde_condition
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
