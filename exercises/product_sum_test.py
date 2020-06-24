@@ -1,9 +1,11 @@
-#   In questa classe verranno effettuati due test in tre modalità differenti:
-#   1) Dato un numero macchina calcolare la differenza di ruisultati tra una serie di somme ed un prodotto con numeri
-#       in doppia, singola e mezza precisione;
-#   2) Dato un numero non di macchina calcolare le stesse differenze con le tre diverse precisioni.
-#   Risultato più alto è il numero per cui effettuare la moltiplicazione o ripetere le somme e maggiori sono differenze
-#   tra la serie di somme e il prodotto.
+"""
+   In questa classe verranno effettuati due test in tre modalità differenti:
+   1) Dato un numero macchina calcolare la differenza di ruisultati tra una serie di somme ed un prodotto con numeri
+       in doppia, singola e mezza precisione;
+   2) Dato un numero non di macchina calcolare le stesse differenze con le tre diverse precisioni.
+   Risultato più alto è il numero per cui effettuare la moltiplicazione o ripetere le somme e maggiori sono differenze
+   tra la serie di somme e il prodotto.
+"""
 
 
 import numpy as np
@@ -11,7 +13,9 @@ import numpy as np
 
 class ProductSumTest:
 
+    # La generazione pseudo random dovrebbe dare come risultato un numero macchina direttamtente.
     __MACHINE_NUMBER = np.random.rand()
+    # Numero reale scelto a caso
     __REAL_NUMBER = 6.92
 
     def __init__(self, times):

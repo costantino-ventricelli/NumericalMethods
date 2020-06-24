@@ -1,7 +1,9 @@
-#   Il condizionamento dei problemi dipende dal tipo di soluzione che troviamo al problema, non dall'algoritmo che
-#   si implementa, soluzioni diverse hanno quindi condizionamenti diversi.
-#   Un problema si dice ben condizionato quando a piccole perturbazioni sui dati in ingresso corrispondono piccole
-#   perturbazioni dei dati in uscita.
+"""
+   Il condizionamento dei problemi dipende dal tipo di soluzione che troviamo al problema, non dall'algoritmo che
+   si implementa, soluzioni diverse hanno quindi condizionamenti diversi.
+   Un problema si dice ben condizionato quando a piccole perturbazioni sui dati in ingresso corrispondono piccole
+   perturbazioni dei dati in uscita.
+"""
 
 
 import numpy as np

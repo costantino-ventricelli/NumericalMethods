@@ -1,7 +1,9 @@
-#   Questa classe calcola il numero massimo, il minimo e la precisone dei tre tipi di rappresentazione floating point:
-#   -   A doppia precisione;
-#   -   A singola precisione;
-#   -   A mezza precisione.
+"""
+   Questa classe calcola il numero massimo, il minimo e la precisone dei tre tipi di rappresentazione floating point:
+   -   A doppia precisione;
+   -   A singola precisione;
+   -   A mezza precisione.
+"""
 
 
 class RealMinMax:
@@ -34,21 +36,23 @@ class RealMinMax:
         self.__mantissa = 0
         self.__epsilon = 0.00
 
-    #   Il calcolo dei valori reali di massimo e minimo inizia calcolando il numero di cifre che compongono la mantissa,
-    #   successivamente vendono individuati i valori limite della caratteristica, lower_bound e upper_bound, per farlo
-    #   viene prima calcolato l'intero range del sistema di numerazione, full_interval, al quale viene sottatro 3 per
-    #   eliminare gli estremi, che vengono usati per individuare i numeri speciali come 0 e infinito, e un altro valore
-    #   per includere lo 0 nella numerazione.
-    #   Dopo aver individuato i limiti superiore e inferiore si procede con il calcolo:
-    #   - max_value: il calcolo (BASE - BASE^(mantissa)) deriva dal calcolo teorico che prevede:
-    #       RealMax = 1.111...111 + 0.000...001, dove 111...111 viene ripetuto t volte e 000.001 gli 0 sono ripetuti
-    #       t - 1 volte.
-    #       Questa uguaglianza viene poi impostata:
-    #           BASE = RealMax + BASE^(-t) => RealMax = BASE - BASE^(-t);
-    #   - min_value: il calcolo è molto più semplice e prevede:
-    #       BASE^(lower_bound);
-    #   - epsilon: viene presa la base ed elevata alla -mantissa per ottenere la distanza tra 1 e il primo sucessore
-    #       rappresentabile: BASE^(-mantissa)
+    """
+       Il calcolo dei valori reali di massimo e minimo inizia calcolando il numero di cifre che compongono la mantissa,
+       successivamente vendono individuati i valori limite della caratteristica, lower_bound e upper_bound, per farlo
+       viene prima calcolato l'intero range del sistema di numerazione, full_interval, al quale viene sottatro 3 per
+       eliminare gli estremi, che vengono usati per individuare i numeri speciali come 0 e infinito, e un altro valore
+       per includere lo 0 nella numerazione.
+       Dopo aver individuato i limiti superiore e inferiore si procede con il calcolo:
+       - max_value: il calcolo (BASE - BASE^(mantissa)) deriva dal calcolo teorico che prevede:
+           RealMax = 1.111...111 + 0.000...001, dove 111...111 viene ripetuto t volte e 000.001 gli 0 sono ripetuti
+           t - 1 volte.
+           Questa uguaglianza viene poi impostata:
+               BASE = RealMax + BASE^(-t) => RealMax = BASE - BASE^(-t);
+       - min_value: il calcolo è molto più semplice e prevede:
+           BASE^(lower_bound);
+       - epsilon: viene presa la base ed elevata alla -mantissa per ottenere la distanza tra 1 e il primo sucessore
+           rappresentabile: BASE^(-mantissa)
+    """
     def calculate_max_min_epsilon(self):
         if self.__bit != 0:
             self.__bit = self.__bit - RealMinMax.__SIGN_BIT

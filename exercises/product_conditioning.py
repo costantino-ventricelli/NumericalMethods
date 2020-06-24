@@ -1,4 +1,7 @@
-#   Come per il condizionamento della somma, quello del prodotto dipende dal problema stesso.
+"""
+   Come per il condizionamento della somma, quello del prodotto dipende dal problema stesso.
+"""
+
 
 import numpy as np
 

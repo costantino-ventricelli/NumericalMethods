@@ -1,8 +1,11 @@
-#   Il condizionamento delle funzioni dipende sempre dalla funzione stessa e dal valore che deve calcolare,
-#   per l'esempio ho utilizzato una funzione radice quadrata e una tangente, le quali per valori bassi da calcolare
-#   si comportano in maniera diametralmente differente.
-#   La funzione radice è ben condizionata per valore di x0 bassi, mentre la funzione tangente è mal condizionata
-#   per valori di x0 bassi
+"""
+   Il condizionamento delle funzioni dipende sempre dalla funzione stessa e dal valore che deve calcolare,
+   per l'esempio ho utilizzato una funzione radice quadrata e una tangente, le quali per valori bassi da calcolare
+   si comportano in maniera diametralmente differente.
+   La funzione radice è ben condizionata per valore di x0 bassi, mentre la funzione tangente è mal condizionata
+   per valori di x0 bassi
+"""
+
 
 import numpy as np
 
