@@ -6,6 +6,8 @@ from exercises.function_conditioning import FunctionConditioning
 from exercises.product_sum_test import ProductSumTest
 from exercises.rotation import Rotation
 from exercises.vandermonde_matrix import VandermondeMatrix
+from exercises.forward_substitution import ForwardSubstitution
+import numpy as np
 
 
 def epsilon_machine_calculus():
@@ -104,6 +106,20 @@ def vandermonde_condition():
           vandermonde.get_condition_number(), "\nL'alfa della mantrice è: ", vandermonde.get_alfa())
 
 
+def forward_substitution_algorithm():
+    dimension = int(input("Inserisci la dimensione della matrice: "))
+    coefficients_matrix = np.zeros(dimension ** 2).reshape(dimension, dimension)
+    for i in range(dimension):
+        coefficients_matrix[i] = list(map(float, input("Inserisci la " + str(i + 1) + " riga: ").split()))
+    known_terms = list(map(float, input("Inserisci il vettore dei coefficienti: ").split()))
+    try:
+        forward_substitution = ForwardSubstitution(coefficients_matrix, known_terms)
+        forward_substitution.forward_calculus()
+        print("Il risultato del calcolo è: ", forward_substitution.get_solution_vector())
+    except Exception as ex:
+        print(ex)
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1) Condizionamento somma;\n"
@@ -113,7 +129,8 @@ def main():
           "5) Minimo e massimo macchina;\n"
           "6) Somma prodotto differenza;\n"
           "7) Ruota immagine;\n"
-          "8) Matrice di Vandermonde;\n")
+          "8) Matrice di Vandermonde;\n"
+          "9) Algoritmo si sostituzione all'indietro\n")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -127,7 +144,8 @@ def switch(select):
         5: real_min_max_calculus,
         6: sum_product_test,
         7: rotate_image,
-        8: vandermonde_condition
+        8: vandermonde_condition,
+        9: forward_substitution_algorithm
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
