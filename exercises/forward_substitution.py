@@ -32,7 +32,7 @@ class ForwardSubstitution:
 
     """
         NOTA: I vari -1 nei for sono dovuti ad una forzatura, nel senso che per forzare python a considerare lo 0 ho
-        dovurto forzarlo a -1.
+        dovurto forzarlo a -1
     """
     def forward_calculus(self):
         n = self.__dimension - 1
