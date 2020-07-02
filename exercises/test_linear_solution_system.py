@@ -7,8 +7,9 @@
     Attraverso il calcolo di matrici mal condizionate come guella di Vandermonde e Hilbert.
 """
 
-
 import numpy as np
+from exercises.partial_pivoting import PartialPivoting
+from exercises.substitution_algorithm import SubstitutionAlgorithm
 
 
 class LinearTest:
@@ -26,7 +27,7 @@ class LinearTest:
 
     for i in range(__n):
         for j in range(__n):
-            __std_hilbert_matrix[i, j] = 1 / i + (j + 1)
+            __std_hilbert_matrix[i, j] = 1 / (i + j + 1)
 
     def __init__(self, dimension):
         self.__dimension = dimension
@@ -38,7 +39,46 @@ class LinearTest:
                 self.__matrix_vandermonde[i, j] = self.__alfa[i] ** j
         for i in range(self.__dimension):
             for j in range(self.__dimension):
-                self.__matrix_hilbert[i, j] = 1/i + (j + 1)
+                self.__matrix_hilbert[i, j] = 1 / (i + j + 1)
 
-    def solve_standard_matrix(self):
-        
+    @staticmethod
+    def __gauss_elimination_method(coefficient_matrix, known_terms_vector):
+        print("Matrice prima dell'applicazione del pivoting\n", coefficient_matrix,
+              "\nTermini noti prima del pivoting: ", known_terms_vector)
+        n, _ = np.shape(coefficient_matrix)
+        pivoting = PartialPivoting(coefficient_matrix, known_terms_vector)
+        coefficient_matrix, known_terms_vector, exchange = pivoting.get_results()
+        print("Matrice dopo l'applicazione del pivoting\n", coefficient_matrix,
+              "\nTermini noti dopo del pivoting: ", known_terms_vector)
+        determinant = np.linalg.det(coefficient_matrix)
+        if (exchange % 2) != 0:
+            determinant *= -1
+        if determinant != 0:
+            for j in range(n - 1):
+                for i in range(j + 1, n):
+                    m = coefficient_matrix[i, j] / coefficient_matrix[j, j]
+                    coefficient_matrix[i, j] = 0
+                    for k in range(j + 1, n):
+                        coefficient_matrix[i, k] = coefficient_matrix[i, k] - (m * coefficient_matrix[j, k])
+                    known_terms_vector[i] = known_terms_vector[i] - (m * known_terms_vector[j])
+        return coefficient_matrix, known_terms_vector
+
+    @staticmethod
+    def std_vandermonde_matrix():
+        coefficient_matrix, known_terms_vector = LinearTest.__gauss_elimination_method(
+            LinearTest.__std_vandermonde_matrix,
+            LinearTest.__vandermonde_known_value)
+        substitution_algorithm = SubstitutionAlgorithm(coefficient_matrix, known_terms_vector)
+        substitution_algorithm.backward_calculus()
+        print("Gauss on matrix: \n", coefficient_matrix, "\nKnwon terms: ", known_terms_vector)
+        print("Souluzione: ", np.array(substitution_algorithm.get_solution_vector()))
+
+    @staticmethod
+    def std_hilbert_matrix():
+        coefficient_matrix, known_terms_vector, = LinearTest.__gauss_elimination_method(
+            LinearTest.__std_hilbert_matrix,
+            LinearTest.__hilbert_known_value)
+        substitution_algorithm = SubstitutionAlgorithm(coefficient_matrix, known_terms_vector)
+        substitution_algorithm.backward_calculus()
+        print("Gauss on matrix: \n", coefficient_matrix, "\nKnwon terms: ", known_terms_vector)
+        print("Souluzione: ", np.array(substitution_algorithm.get_solution_vector()))

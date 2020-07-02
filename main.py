@@ -6,7 +6,8 @@ from exercises.function_conditioning import FunctionConditioning
 from exercises.product_sum_test import ProductSumTest
 from exercises.rotation import Rotation
 from exercises.vandermonde_matrix import VandermondeMatrix
-from exercises.forward_substitution import ForwardSubstitution
+from exercises.substitution_algorithm import SubstitutionAlgorithm
+from exercises.test_linear_solution_system import LinearTest
 import numpy as np
 
 
@@ -113,24 +114,32 @@ def forward_substitution_algorithm():
         coefficients_matrix[i] = list(map(float, input("Inserisci la " + str(i + 1) + " riga: ").split()))
     known_terms = list(map(float, input("Inserisci il vettore dei coefficienti: ").split()))
     try:
-        forward_substitution = ForwardSubstitution(coefficients_matrix, known_terms)
-        forward_substitution.forward_calculus()
+        forward_substitution = SubstitutionAlgorithm(coefficients_matrix, known_terms)
+        forward_substitution.backward_calculus()
         print("Il risultato del calcolo è: ", forward_substitution.get_solution_vector())
     except Exception as ex:
         print(ex)
 
 
+def linear_system_test():
+    print("VANDERMONDE MATRIX\n")
+    LinearTest.std_vandermonde_matrix()
+    print("HILBERT MATRIX")
+    LinearTest.std_hilbert_matrix()
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
-          "1) Condizionamento somma;\n"
-          "2) Condizionamento prodotto;\n"
-          "3) Condizionamento calcolo funzioni;\n"
-          "4) Epsilon machine;\n"
-          "5) Minimo e massimo macchina;\n"
-          "6) Somma prodotto differenza;\n"
-          "7) Ruota immagine;\n"
-          "8) Matrice di Vandermonde;\n"
-          "9) Algoritmo si sostituzione all'indietro\n")
+          "1)  Condizionamento somma;\n"
+          "2)  Condizionamento prodotto;\n"
+          "3)  Condizionamento calcolo funzioni;\n"
+          "4)  Epsilon machine;\n"
+          "5)  Minimo e massimo macchina;\n"
+          "6)  Somma prodotto differenza;\n"
+          "7)  Ruota immagine;\n"
+          "8)  Matrice di Vandermonde;\n"
+          "9)  Algoritmo si sostituzione all'indietro\n"
+          "10) Test sistemi lineari\n")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -145,7 +154,8 @@ def switch(select):
         6: sum_product_test,
         7: rotate_image,
         8: vandermonde_condition,
-        9: forward_substitution_algorithm
+        9: forward_substitution_algorithm,
+        10: linear_system_test
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
