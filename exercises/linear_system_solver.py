@@ -16,7 +16,7 @@ from exercises.substitution_algorithm import SubstitutionAlgorithm
 
 class LinearTest:
     __n = 3
-    __tolerance = 1.0e-10
+    __tolerance = 1.0e-50
     __std_vandermonde_matrix = np.arange(float(__n ** 2)).reshape(__n, __n)
     __std_hilbert_matrix = np.arange(float(__n ** 2)).reshape(__n, __n)
     __std_alfa = np.linspace(0, 1, __n)
@@ -88,25 +88,76 @@ class LinearTest:
         return upper_matrix, lower_matrix, b_vector, exchange_array
 
     @staticmethod
-    def __jacob_iterative_method(coefficient_matrix, known_terms_vector):
+    def __jacobi_iterative_method(coefficient_matrix, known_terms_vector):
         matrix = np.copy(coefficient_matrix)
         b_vector = np.copy(known_terms_vector)
         n, _ = np.shape(coefficient_matrix)
-        current_x = np.zeros(n)
-        previous_x = np.zeros(n)
+        current_x = np.ones(n)
         epsilon = np.linalg.norm(b_vector) * LinearTest.__tolerance
         max_iteration = n * 2
-        diagonal_matrix = np.zeros(n, n)
+        diagonal_matrix = np.zeros((n, n))
         for i in range(n):
             diagonal_matrix[i, i] = matrix[i, i]
             matrix[i, i] = 0
         stop = False
         index = 0
         while not stop and index < max_iteration:
+            previous_x = np.copy(current_x)
             for i in range(n):
-                for j in range(1, n)
+                sum = 0.0
+                for j in range(0, n):
+                    if j != i:
+                        sum += matrix[i][j] * previous_x[j]
+                current_x[i] = (b_vector[i] - sum) / diagonal_matrix[i][i]
+            if np.abs(np.linalg.norm(previous_x) - np.linalg.norm(current_x)) < epsilon:
+                stop = True
+            else:
+                index += 1
+        if not stop and (index + 1) >= max_iteration:
+            return False, current_x
+        else:
+            return True, current_x
 
-
+    @staticmethod
+    def gauss_seidel_iterative_method(coefficient_matrix, known_value_vector):
+        n, _ = np.shape(coefficient_matrix)
+        b_vector = np.copy(known_value_vector)
+        diagonal_matrix = np.diag(np.diag(coefficient_matrix))
+        epsilon = np.linalg.norm(b_vector) * LinearTest.__tolerance
+        max_iteration = n * 2
+        upper_matrix = np.zeros((n, n))
+        lower_matrix = np.zeros((n, n))
+        current_x = np.ones(n)
+        next_x = np.ones(n)
+        for i in range(n):
+            for j in range(n):
+                if j < i:
+                    lower_matrix[i][j] = coefficient_matrix[i][j]
+                elif j > i:
+                    upper_matrix[i][j] = coefficient_matrix[i][j]
+                else:
+                    lower_matrix[i][j] = 0
+                    upper_matrix[i][j] = 0
+        stop = False
+        index = 0
+        while not stop and index < max_iteration:
+            previous_x = np.copy(current_x)
+            current_x = np.copy(next_x)
+            for i in range(n):
+                sum = 0.00
+                for j in range(i - 1):
+                    sum += lower_matrix[i][j]*current_x[j]
+                for j in range(i + 1, n):
+                    sum += upper_matrix[i][j]*previous_x[j]
+                next_x[i] = (b_vector[i] - sum) / diagonal_matrix[i][i]
+            if np.linalg.norm(b_vector - np.dot(coefficient_matrix, next_x)) < epsilon:
+                stop = True
+            else:
+                index += 1
+        if not stop and index > max_iteration:
+            return False, next_x
+        else:
+            return True, next_x
 
     @staticmethod
     def std_vandermonde_matrix_gauss():
@@ -118,8 +169,7 @@ class LinearTest:
         return substitution_algorithm.get_solution_vector(), \
                np.abs(np.linalg.norm(LinearTest.__std_vandermonde_solution -
                                      np.linalg.norm(substitution_algorithm.get_solution_vector()))), \
-               np.abs(np.linalg.norm(LinearTest.__std_vandermonde_solution -
-                                     np.linalg.norm(substitution_algorithm.get_solution_vector()))) / \
+               np.abs(np.linalg.norm(LinearTest.__std_vandermonde_solution - substitution_algorithm.get_solution_vector())) / \
                np.linalg.norm(LinearTest.__std_vandermonde_solution)
 
     @staticmethod
@@ -130,10 +180,9 @@ class LinearTest:
         substitution_algorithm = SubstitutionAlgorithm(coefficient_matrix, known_terms_vector)
         substitution_algorithm.backward_calculus()
         return substitution_algorithm.get_solution_vector(), \
+               np.abs(np.linalg.norm(LinearTest.__std_hilbert_solution - substitution_algorithm.get_solution_vector())), \
                np.abs(np.linalg.norm(LinearTest.__std_hilbert_solution -
-                                     np.linalg.norm(substitution_algorithm.get_solution_vector()))), \
-               np.abs(np.linalg.norm(LinearTest.__std_hilbert_solution -
-                                     np.linalg.norm(substitution_algorithm.get_solution_vector()))) / \
+                                     substitution_algorithm.get_solution_vector())) / \
                np.linalg.norm(LinearTest.__std_hilbert_solution)
 
     @staticmethod
@@ -150,8 +199,7 @@ class LinearTest:
         return solution_vector, \
                np.abs(np.linalg.norm(LinearTest.__std_vandermonde_solution -
                                      np.linalg.norm(solution_vector))), \
-               np.abs(np.linalg.norm(LinearTest.__std_vandermonde_solution -
-                                     np.linalg.norm(solution_vector)) / \
+               np.abs(np.linalg.norm(LinearTest.__std_vandermonde_solution - solution_vector) / \
                       np.linalg.norm(LinearTest.__std_vandermonde_solution))
 
     @staticmethod
@@ -168,6 +216,23 @@ class LinearTest:
         return solution_vector, \
                np.abs(np.linalg.norm(LinearTest.__std_hilbert_solution -
                                      np.linalg.norm(solution_vector))), \
-               np.abs(np.linalg.norm(LinearTest.__std_hilbert_solution -
-                                     np.linalg.norm(solution_vector)) / \
+               np.abs(np.linalg.norm(LinearTest.__std_hilbert_solution - solution_vector) /
                       np.linalg.norm(LinearTest.__std_vandermonde_solution))
+
+    @staticmethod
+    def std_jacobi():
+        coefficient_matrix = -4 * np.diag(np.ones(10)) + np.diag(np.ones(9), 1) + np.diag(np.ones(9), -1)
+        known_value_vector = np.array([-3., -2., -2., -2., -2., -2., -2., -2., -2., -3.])
+        theoretical_solution = np.ones(10)
+        convergence, solution = LinearTest.__jacobi_iterative_method(coefficient_matrix, known_value_vector)
+        return solution, np.abs(np.linalg.norm(solution) - np.linalg.norm(theoretical_solution)), \
+               np.abs(np.linalg.norm(solution - theoretical_solution) / np.linalg.norm(solution))
+
+    @staticmethod
+    def std_gauss_seidel():
+        coefficient_matrix = -4 * np.diag(np.ones(10)) + np.diag(np.ones(9), 1) + np.diag(np.ones(9), -1)
+        known_value_vector = np.array([-3., -2., -2., -2., -2., -2., -2., -2., -2., -3.])
+        theoretical_solution = np.ones(10)
+        convergence, solution = LinearTest.gauss_seidel_iterative_method(coefficient_matrix, known_value_vector)
+        return solution, np.abs(np.linalg.norm(solution) - np.linalg.norm(theoretical_solution)), \
+               np.abs(np.linalg.norm(solution - theoretical_solution) / np.linalg.norm(solution))

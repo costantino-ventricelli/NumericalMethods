@@ -150,6 +150,18 @@ def linear_system_test():
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("METODO ITERATIVO DI JACOBI")
+    start_time = time.time()
+    solution, absolute, relative = LinearTest.std_jacobi()
+    total_time = time.time() - start_time
+    print("Tempo di esecuzione: ", total_time)
+    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("METODO ITERATIVO DI GAUSS-SEIDEL")
+    start_time = time.time()
+    solution, absolute, relative = LinearTest.std_gauss_seidel()
+    total_time = time.time() - start_time
+    print("Tempo di esecuzione: ", total_time)
+    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
 
 
 def random_system_solver():
