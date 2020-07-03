@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     La matrice di Vandermonde è una particolare matrice che contiene al suo interno una progressione geometrica di
     valri:

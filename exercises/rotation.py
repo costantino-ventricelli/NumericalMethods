@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     In questo esercizio applichiamo il principio delle matrici di rotazione per roteare una figura disegnata su un
     grafico, la figura in questione è una casetta stilizzata.

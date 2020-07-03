@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
    Questa classe calcola il numero massimo, il minimo e la precisone dei tre tipi di rappresentazione floating point:
    -   A doppia precisione;

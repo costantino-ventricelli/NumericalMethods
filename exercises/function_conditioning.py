@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
    Il condizionamento delle funzioni dipende sempre dalla funzione stessa e dal valore che deve calcolare,
    per l'esempio ho utilizzato una funzione radice quadrata e una tangente, le quali per valori bassi da calcolare

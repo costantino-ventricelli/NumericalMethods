@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     L'algoritmo di sostituzione all'indietro permette di risolvere sistemi lineari che generano matrici triangolari
     superiori:
@@ -46,7 +47,7 @@ class SubstitutionAlgorithm:
 
     def forward_calculus(self):
         for i in range(self.__n):
-            for j in range(i + 1):
+            for j in range(i + 1, self.__n):
                 if self.__matrix[i][j] != 0:
                     raise NonTriangularMatrix("La matrice inserita non è triangolare inferiore")
         self.__x[0] = self.__known_terms[0] / self.__matrix[0][0]
@@ -54,7 +55,7 @@ class SubstitutionAlgorithm:
             sum = 0.0
             for j in range(i + 1):
                 sum += self.__matrix[i][j] * self.__x[j]
-            self.__x[i] = 1/self.__matrix[i][i] * (self.__known_terms - sum)
+            self.__x[i] = (self.__known_terms[i] - sum) / self.__matrix[i][i]
 
     def get_solution_vector(self):
         return self.__x

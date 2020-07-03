@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
    In questa classe verranno effettuati due test in tre modalità differenti:
    1) Dato un numero macchina calcolare la differenza di ruisultati tra una serie di somme ed un prodotto con numeri

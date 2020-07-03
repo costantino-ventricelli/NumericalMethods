@@ -1,14 +1,18 @@
-from exercises.epsilon_machine import EpsilonMachine
-from exercises.real_min_max import RealMinMax
-from exercises.sum_conditioning import SumConditioning
-from exercises.product_conditioning import ProductConditioning
-from exercises.function_conditioning import FunctionConditioning
-from exercises.product_sum_test import ProductSumTest
-from exercises.rotation import Rotation
-from exercises.vandermonde_matrix import VandermondeMatrix
-from exercises.substitution_algorithm import SubstitutionAlgorithm
-from exercises.test_linear_solution_system import LinearTest
+# -*- coding: utf-8 -*-
+import time
+
 import numpy as np
+
+from exercises.epsilon_machine import EpsilonMachine
+from exercises.function_conditioning import FunctionConditioning
+from exercises.linear_system_solver import LinearTest
+from exercises.product_conditioning import ProductConditioning
+from exercises.product_sum_test import ProductSumTest
+from exercises.real_min_max import RealMinMax
+from exercises.rotation import Rotation
+from exercises.substitution_algorithm import SubstitutionAlgorithm
+from exercises.sum_conditioning import SumConditioning
+from exercises.vandermonde_matrix import VandermondeMatrix
 
 
 def epsilon_machine_calculus():
@@ -122,10 +126,45 @@ def forward_substitution_algorithm():
 
 
 def linear_system_test():
-    print("VANDERMONDE MATRIX\n")
-    LinearTest.std_vandermonde_matrix()
-    print("HILBERT MATRIX")
-    LinearTest.std_hilbert_matrix()
+    print("VANDERMONDE MATRIX CON METODO DI GAUSS")
+    start_time = time.time()
+    solution, absolute, relative = LinearTest.std_vandermonde_matrix_gauss()
+    total_time = (time.time() - start_time)
+    print("Tempo di esecuzione: ", total_time)
+    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("HILBERT MATRIX CON METODO DI GAUSS")
+    start_time = time.time()
+    solution, absolute, relative = LinearTest.std_hilbert_matrix_gauss()
+    total_time = (time.time() - start_time)
+    print("Tempo di esecuzione: ", total_time)
+    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("VANDERMONDE MATRIX CON FATTORIZZAZIONE LU")
+    start_time = time.time()
+    solution, absolute, relative = LinearTest.std_vandermonde_matrix_lu()
+    total_time = (time.time() - start_time)
+    print("Tempo di esecuzione: ", total_time)
+    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("HILBERT MATRIX CON FATTORIZZAZIONE LU")
+    start_time = time.time()
+    solution, absolute, relative = LinearTest.std_hilbert_matrix_lu()
+    total_time = (time.time() - start_time)
+    print("Tempo di esecuzione: ", total_time)
+    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+
+
+def random_system_solver():
+    print("Work in progress")
+
+
+def linear_system():
+    choice = int(input("Vuoi:\n"
+          "1) Avviare il test standard;\n"
+          "2) Avviare il test con valori casuali;\n"
+          "Inserisci risposta: "))
+    if choice == 1:
+        linear_system_test()
+    else:
+        random_system_solver()
 
 
 def main():
@@ -139,7 +178,7 @@ def main():
           "7)  Ruota immagine;\n"
           "8)  Matrice di Vandermonde;\n"
           "9)  Algoritmo si sostituzione all'indietro\n"
-          "10) Test sistemi lineari\n")
+          "10) Sistemi lineari\n")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -155,7 +194,7 @@ def switch(select):
         7: rotate_image,
         8: vandermonde_condition,
         9: forward_substitution_algorithm,
-        10: linear_system_test
+        10: linear_system
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
    Il condizionamento dei problemi dipende dal tipo di soluzione che troviamo al problema, non dall'algoritmo che
    si implementa, soluzioni diverse hanno quindi condizionamenti diversi.

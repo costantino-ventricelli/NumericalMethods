@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
    Come per il condizionamento della somma, quello del prodotto dipende dal problema stesso.
 """

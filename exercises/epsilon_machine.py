@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
    L'epsilon machine è il minimo valore necessario per passare dal numero 1.0 al suo successivo,
    da questo valore si calcola la precisione della macchina e il numero di cifre significative nella conversione
