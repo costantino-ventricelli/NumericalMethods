@@ -16,6 +16,7 @@ from exercises.substitution_algorithm import SubstitutionAlgorithm
 
 class LinearTest:
     __n = 3
+    __tolerance = 1.0e-10
     __std_vandermonde_matrix = np.arange(float(__n ** 2)).reshape(__n, __n)
     __std_hilbert_matrix = np.arange(float(__n ** 2)).reshape(__n, __n)
     __std_alfa = np.linspace(0, 1, __n)
@@ -85,6 +86,27 @@ class LinearTest:
             upper_matrix = np.zeros((n, n))
             lower_matrix = np.zeros((n, n))
         return upper_matrix, lower_matrix, b_vector, exchange_array
+
+    @staticmethod
+    def __jacob_iterative_method(coefficient_matrix, known_terms_vector):
+        matrix = np.copy(coefficient_matrix)
+        b_vector = np.copy(known_terms_vector)
+        n, _ = np.shape(coefficient_matrix)
+        current_x = np.zeros(n)
+        previous_x = np.zeros(n)
+        epsilon = np.linalg.norm(b_vector) * LinearTest.__tolerance
+        max_iteration = n * 2
+        diagonal_matrix = np.zeros(n, n)
+        for i in range(n):
+            diagonal_matrix[i, i] = matrix[i, i]
+            matrix[i, i] = 0
+        stop = False
+        index = 0
+        while not stop and index < max_iteration:
+            for i in range(n):
+                for j in range(1, n)
+
+
 
     @staticmethod
     def std_vandermonde_matrix_gauss():
