@@ -125,58 +125,44 @@ def forward_substitution_algorithm():
         print(ex)
 
 
-def linear_system_test():
+def linear_system():
+    linear_test = LinearTest(int(input("Inserisci la dimensione della matrice: ")))
     print("VANDERMONDE MATRIX CON METODO DI GAUSS")
     start_time = time.time()
-    solution, absolute, relative = LinearTest.std_vandermonde_matrix_gauss()
+    solution, absolute, relative = linear_test.std_vandermonde_matrix_gauss()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
     print("HILBERT MATRIX CON METODO DI GAUSS")
     start_time = time.time()
-    solution, absolute, relative = LinearTest.std_hilbert_matrix_gauss()
+    solution, absolute, relative = linear_test.std_hilbert_matrix_gauss()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
     print("VANDERMONDE MATRIX CON FATTORIZZAZIONE LU")
     start_time = time.time()
-    solution, absolute, relative = LinearTest.std_vandermonde_matrix_lu()
+    solution, absolute, relative = linear_test.std_vandermonde_matrix_lu()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
     print("HILBERT MATRIX CON FATTORIZZAZIONE LU")
     start_time = time.time()
-    solution, absolute, relative = LinearTest.std_hilbert_matrix_lu()
+    solution, absolute, relative = linear_test.std_hilbert_matrix_lu()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
     print("METODO ITERATIVO DI JACOBI")
     start_time = time.time()
-    solution, absolute, relative = LinearTest.std_jacobi()
+    solution, absolute, relative = linear_test.std_jacobi()
     total_time = time.time() - start_time
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
     print("METODO ITERATIVO DI GAUSS-SEIDEL")
     start_time = time.time()
-    solution, absolute, relative = LinearTest.std_gauss_seidel()
+    solution, absolute, relative = linear_test.std_gauss_seidel()
     total_time = time.time() - start_time
     print("Tempo di esecuzione: ", total_time)
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
-
-
-def random_system_solver():
-    print("Work in progress")
-
-
-def linear_system():
-    choice = int(input("Vuoi:\n"
-          "1) Avviare il test standard;\n"
-          "2) Avviare il test con valori casuali;\n"
-          "Inserisci risposta: "))
-    if choice == 1:
-        linear_system_test()
-    else:
-        random_system_solver()
 
 
 def main():
