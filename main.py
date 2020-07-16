@@ -3,16 +3,16 @@ import time
 
 import numpy as np
 
-from exercises.epsilon_machine import EpsilonMachine
-from exercises.function_conditioning import FunctionConditioning
-from exercises.linear_system_solver import LinearTest
-from exercises.product_conditioning import ProductConditioning
-from exercises.product_sum_test import ProductSumTest
-from exercises.real_min_max import RealMinMax
-from exercises.rotation import Rotation
-from exercises.substitution_algorithm import SubstitutionAlgorithm
-from exercises.sum_conditioning import SumConditioning
-from exercises.vandermonde_matrix import VandermondeMatrix
+from exercises.machine_number.epsilon_machine import EpsilonMachine
+from exercises.machine_number.function_conditioning import FunctionConditioning
+from exercises.linear_system.linear_system_solver import LinearTest
+from exercises.machine_number.product_conditioning import ProductConditioning
+from exercises.machine_number.product_sum_test import ProductSumTest
+from exercises.machine_number.real_min_max import RealMinMax
+from exercises.linear_system.rotation import Rotation
+from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
+from exercises.machine_number.sum_conditioning import SumConditioning
+from exercises.linear_system.vandermonde_matrix import VandermondeMatrix
 
 
 def epsilon_machine_calculus():

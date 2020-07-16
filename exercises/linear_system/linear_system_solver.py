@@ -10,8 +10,8 @@
 
 import numpy as np
 
-from exercises.partial_pivoting import PartialPivoting
-from exercises.substitution_algorithm import SubstitutionAlgorithm
+from exercises.linear_system.partial_pivoting import PartialPivoting
+from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
 
 
 class LinearTest:
