@@ -165,6 +165,10 @@ def linear_system():
     print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
 
 
+def equation_solver():
+
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1)  Condizionamento somma;\n"
