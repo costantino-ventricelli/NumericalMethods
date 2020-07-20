@@ -2,6 +2,7 @@
 import time
 
 import numpy as np
+from tabulate import tabulate
 
 from exercises.machine_number.epsilon_machine import EpsilonMachine
 from exercises.machine_number.function_conditioning import FunctionConditioning
@@ -13,6 +14,7 @@ from exercises.linear_system.rotation import Rotation
 from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
 from exercises.machine_number.sum_conditioning import SumConditioning
 from exercises.linear_system.vandermonde_matrix import VandermondeMatrix
+from exercises.unlinear_equation.zero_methods import ZeroMethods
 
 
 def epsilon_machine_calculus():
@@ -85,17 +87,23 @@ def sum_product_test():
     product_sum_test.calculate_machine_products_sum()
     product_sum_test.calculate_real_products_sum()
     print("Il valore delle somme in doppia precisione per il numero macchina è: ",
-          product_sum_test.get_machine_double_sum(), " mentre il prodotto è: ", product_sum_test.get_machine_double_product())
+          product_sum_test.get_machine_double_sum(), " mentre il prodotto è: ",
+          product_sum_test.get_machine_double_product())
     print("Il valore delle somme in doppia precisione per il numero reale è: ",
-          product_sum_test.get_real_double_sum(), " mentre il prodotto è: ", product_sum_test.get_real_double_product(), "\n")
+          product_sum_test.get_real_double_sum(), " mentre il prodotto è: ", product_sum_test.get_real_double_product(),
+          "\n")
     print("Il valore delle somme in singola precisione per il numero macchina è: ",
-          product_sum_test.get_machine_single_sum(), " mentre il prodotto è: ", product_sum_test.get_machine_single_product())
+          product_sum_test.get_machine_single_sum(), " mentre il prodotto è: ",
+          product_sum_test.get_machine_single_product())
     print("Il valore delle somme in singola precisione per il numero reale è: ",
-          product_sum_test.get_real_single_sum(), " mentre il prodotto è: ", product_sum_test.get_real_single_product(), "\n")
+          product_sum_test.get_real_single_sum(), " mentre il prodotto è: ", product_sum_test.get_real_single_product(),
+          "\n")
     print("Il valore delle somme in mezza precisione per il numero macchina è: ",
-          product_sum_test.get_machine_half_sum(), " mentre il prodotto è: ", product_sum_test.get_machine_half_product())
+          product_sum_test.get_machine_half_sum(), " mentre il prodotto è: ",
+          product_sum_test.get_machine_half_product())
     print("Il valore delle somme in mezza precisione per il numero reale è: ",
-          product_sum_test.get_real_half_sum(), "mentre il prodotto è: ", product_sum_test.get_real_half_product(), "\n")
+          product_sum_test.get_real_half_sum(), "mentre il prodotto è: ", product_sum_test.get_real_half_product(),
+          "\n")
 
 
 def rotate_image():
@@ -166,7 +174,45 @@ def linear_system():
 
 
 def equation_solver():
+    first_equation = np.array([2, 2, 0, 3], dtype=float)
+    interval = np.array([-2, -1], dtype=int)
+    first_bisection_time = time.time()
+    first_bisection = ZeroMethods.bisection_method(first_equation, interval, 0)
+    first_bisection_time = time.time() - first_bisection_time
+    first_newton_time = time.time()
+    first_newton = ZeroMethods.newton_method(first_equation, interval)
+    first_newton_time = time.time() - first_newton_time
+    first_secant_time = time.time()
+    first_secant = ZeroMethods.secant_method(first_equation, interval)
+    first_secant_time = time.time() - first_secant_time
+    second_equation = np.array([3, 9, 5, -4, 6, -3, 2, -7, 8, 1, -3], dtype=float)
+    interval = np.array([-1, 0], dtype=int)
+    second_bisection_time = time.time()
+    second_bisection = ZeroMethods.bisection_method(second_equation, interval, 0)
+    second_bisection_time = time.time() - second_bisection_time
+    second_newton_time = time.time()
+    second_newton = ZeroMethods.newton_method(second_equation, interval)
+    second_newton_time = time.time() - second_newton_time
+    second_secant_time = time.time()
+    second_secant = ZeroMethods.secant_method(second_equation, interval)
+    second_secant_time = time.time() - second_secant_time
+    print("\nEquazione: 2x^3+2x^2+3")
+    table = [["Bisezione", first_bisection_time, first_bisection, np.abs(-1.59190088744889310 - first_bisection),
+             np.abs(-1.59190088744889310 - first_bisection) / np.abs(first_bisection)],
+             ["Newton", first_newton_time, first_newton, np.abs(-1.59190088744889310 - first_newton),
+             np.abs(-1.59190088744889310 - first_newton) / np.abs(first_newton)],
+             ["Secanti", first_secant_time, first_secant, np.abs(-1.59190088744889310 - first_secant),
+             np.abs(-1.59190088744889310 - first_secant) / np.abs(first_secant)]]
+    print(tabulate(table, headers=["Metodo", "Tempo di esecuzione", "Soluzione", "Errore assoluto", "Errore relativo"]))
 
+    print("\nEquazione: 3x^10+9x^9+5x^8-4x^7+6x^6-3x^5+2x^4-7x^3+8x^2+x-3")
+    table = [["Bisezione", second_bisection_time, second_bisection, np.abs(-0.5168670824290528 - second_bisection),
+              np.abs(-0.5168670824290528 - second_bisection) / np.abs(second_bisection)],
+             ["Newton", second_newton_time, second_newton, np.abs(-0.5168670824290528 - second_newton),
+              np.abs(-0.5168670824290528 - second_newton) / np.abs(second_newton)],
+             ["Secanti", second_secant_time, second_secant, np.abs(-0.5168670824290528 - second_secant),
+              np.abs(-0.5168670824290528 - second_secant) / np.abs(second_secant)]]
+    print(tabulate(table, headers=["Metodo", "Tempo di esecuzione", "Soluzione", "Errore assoluto", "Errore relativo"]))
 
 
 def main():
@@ -180,7 +226,8 @@ def main():
           "7)  Ruota immagine;\n"
           "8)  Matrice di Vandermonde;\n"
           "9)  Algoritmo si sostituzione all'indietro\n"
-          "10) Sistemi lineari\n")
+          "10) Sistemi lineari\n"
+          "11) Equazioni non lineari")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -196,7 +243,8 @@ def switch(select):
         7: rotate_image,
         8: vandermonde_condition,
         9: forward_substitution_algorithm,
-        10: linear_system
+        10: linear_system,
+        11: equation_solver
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()

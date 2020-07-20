@@ -12,12 +12,11 @@
     definition_interval: contiene per ogni funzione il suo corrispondente intervallo in cui cercare lo zero della.
 """
 
-
 import numpy as np
+import sympy as sp
 
 
 class ZeroMethods:
-
     __tolerance = 1.0e-10
 
     """
@@ -25,11 +24,13 @@ class ZeroMethods:
         coefficienti secondo la formattazione precedente, metre value contiene il valore per cui si vuole calcolare la 
         funzione, in pratica l'x0.
     """
+
     @staticmethod
     def get_function_value(function, x0_value):
         calculated_value = 0.00
-        for i in range(len(function), 0):
-            calculated_value += x0_value**i * function[i]
+        iteration = len(function)
+        for i in range(iteration):
+            calculated_value += x0_value ** (iteration - 1 - i) * function[i]
         return calculated_value
 
     @staticmethod
@@ -41,47 +42,45 @@ class ZeroMethods:
         ck = []
         k = 0
         if fa[0] * ZeroMethods.get_function_value(function, interval[1]) < 0:
-            if iteration != 0:
-                iteration = np.log2((bk[k] - ak[k]) / ZeroMethods.__tolerance)
+            if iteration == 0:
+                iteration = int(np.log2((bk[k] - ak[k]) / ZeroMethods.__tolerance))
             else:
                 iteration = 1
-            while k < iteration and (bk[k] - ak[k]) < ZeroMethods.__tolerance:
-                ck.append((bk[k] - ak[k]) / 2)
+            while k < iteration and (bk[k] - ak[k]) > ZeroMethods.__tolerance:
+                ck.append((bk[k] + ak[k]) / 2)
                 fc.append(ZeroMethods.get_function_value(function, ck[k]))
-                check = fa[k] * fc[k]
-                if check < 0:
+                if fa[k] * fc[k] < 0:
                     ak.append(ak[k])
                     bk.append(ck[k])
-                elif check > 0:
+                else:
                     ak.append(ck[k])
                     bk.append(bk[k])
-                else:
-                    k = iteration
                 k += 1
-        return ck[k]
+                fa.append(ZeroMethods.get_function_value(function, ak[k]))
+        return ck[k - 1]
 
     @staticmethod
     def newton_method(function, interval):
-        h = 0.1e-6
+        h = 1.0e-11
         k = 0
-        xk = [ZeroMethods.bisection_method(function, interval, 0), 0]
-        while np.abs(xk[k + 1] - xk[k]) > ZeroMethods.__tolerance:
-            derived = (ZeroMethods.get_function_value(function, xk[k] - h) - ZeroMethods.get_function_value(function,
-                                                                                                            xk[k])) / h
-            xk.append(xk[k] - ZeroMethods.get_function_value(function, xk[k]) / derived)
+        xk = [ZeroMethods.bisection_method(function, interval, 1)]
+        prev = 0.00
+        while np.abs(prev - xk[k]) > ZeroMethods.__tolerance:
+            derivative = (ZeroMethods.get_function_value(function, xk[k] + h)
+                          - ZeroMethods.get_function_value(function, xk[k])) / h
+            xk.append(xk[k] - ZeroMethods.get_function_value(function, xk[k]) / derivative)
+            prev = xk[k]
             k += 1
         return xk[k]
 
     @staticmethod
     def secant_method(function, interval):
-        k = 0
-        xk = [ZeroMethods.bisection_method(function, interval, 0), 0]
-        while np.abs(xk[k + 1] - xk[k]) > ZeroMethods.__tolerance:
-            if k > 0:
-                coefficient = (xk[k] - xk[k - 1]) / (ZeroMethods.get_function_value(function, xk[k]) -
-                                                     ZeroMethods.get_function_value(function, xk[k - 1]))
-            else:
-                coefficient = xk[k] / ZeroMethods.get_function_value(function, xk[k])
-            xk.append(xk[k] - ZeroMethods.get_function_value(function, xk[k]) * coefficient)
+        xk = [ZeroMethods.get_function_value(function, interval[0]), ZeroMethods.get_function_value(function,
+                                                                                                    interval[1])]
+        k = 1
+        while (np.abs(xk[k] - xk[k - 1])) > ZeroMethods.__tolerance:
+            f_k = ZeroMethods.get_function_value(function, xk[k])
+            f_k_1 = ZeroMethods.get_function_value(function, xk[k - 1])
+            xk.append(xk[k] - f_k * ((xk[k] - xk[k - 1]) / (f_k - f_k_1)))
             k += 1
         return xk[k]
