@@ -15,6 +15,8 @@ from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
 from exercises.machine_number.sum_conditioning import SumConditioning
 from exercises.linear_system.vandermonde_matrix import VandermondeMatrix
 from exercises.unlinear_equation.zero_methods import ZeroMethods
+from exercises.interpolation.unknown_coefficient import UnknownCoefficient
+
 
 
 def epsilon_machine_calculus():
@@ -215,6 +217,14 @@ def equation_solver():
     print(tabulate(table, headers=["Metodo", "Tempo di esecuzione", "Soluzione", "Errore assoluto", "Errore relativo"]))
 
 
+def unknown_coefficient_interpolation():
+    start_time = time.time()
+    unknown_coefficient = UnknownCoefficient()
+    end_time = time.time()
+    print("Interpolazione calcolata in: ", (end_time - start_time))
+    unknown_coefficient.plot_polynomial()
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1)  Condizionamento somma;\n"
@@ -227,7 +237,8 @@ def main():
           "8)  Matrice di Vandermonde;\n"
           "9)  Algoritmo si sostituzione all'indietro\n"
           "10) Sistemi lineari\n"
-          "11) Equazioni non lineari")
+          "11) Equazioni non lineari\n"
+          "12) Interpolazione a coefficienti ignoti")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -244,7 +255,8 @@ def switch(select):
         8: vandermonde_condition,
         9: forward_substitution_algorithm,
         10: linear_system,
-        11: equation_solver
+        11: equation_solver,
+        12: unknown_coefficient_interpolation
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
