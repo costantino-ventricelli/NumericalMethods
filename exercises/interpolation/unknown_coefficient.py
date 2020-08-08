@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     Il primo metodo di interpolazione che andremo a studiare è il metodo polinomiale a coefficienti indeterminati, il
     quale genera una matrice Vandermonde per determinare il valore dei coefficienti i quali ci permettono poi di costruire

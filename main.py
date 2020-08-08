@@ -16,7 +16,7 @@ from exercises.machine_number.sum_conditioning import SumConditioning
 from exercises.linear_system.vandermonde_matrix import VandermondeMatrix
 from exercises.unlinear_equation.zero_methods import ZeroMethods
 from exercises.interpolation.unknown_coefficient import UnknownCoefficient
-
+from exercises.interpolation.lagrange_polynomial import LagrangePolynomial
 
 
 def epsilon_machine_calculus():
@@ -225,6 +225,19 @@ def unknown_coefficient_interpolation():
     unknown_coefficient.plot_polynomial()
 
 
+def lagrange_interpolation():
+    choose = int(input("1) Prima forma di bisezione\n"
+                   "2) Seconda forma di bisezione\n"
+                   "Inserisci la scelta: "))
+    lagrange = LagrangePolynomial()
+    if choose == 1:
+        lagrange.compute_first_barycentric_form()
+    elif choose == 2:
+        lagrange.compute_second_barycentric_form()
+    else:
+        print("Selezione non valida")
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1)  Condizionamento somma;\n"
@@ -238,7 +251,8 @@ def main():
           "9)  Algoritmo si sostituzione all'indietro\n"
           "10) Sistemi lineari\n"
           "11) Equazioni non lineari\n"
-          "12) Interpolazione a coefficienti ignoti")
+          "12) Interpolazione a coefficienti ignoti\n"
+          "13) Interpolazione di lagrange")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -256,7 +270,8 @@ def switch(select):
         9: forward_substitution_algorithm,
         10: linear_system,
         11: equation_solver,
-        12: unknown_coefficient_interpolation
+        12: unknown_coefficient_interpolation,
+        13: lagrange_interpolation
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
