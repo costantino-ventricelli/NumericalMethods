@@ -5,8 +5,8 @@
     il polinomio interpolante.
 """
 
-import numpy as np
 import matplotlib.pyplot as plot
+import numpy as np
 
 
 class UnknownCoefficient:

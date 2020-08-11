@@ -4,19 +4,19 @@ import time
 import numpy as np
 from tabulate import tabulate
 
+from exercises.interpolation.lagrange_polynomial import LagrangePolynomial
+from exercises.interpolation.unknown_coefficient import UnknownCoefficient
+from exercises.linear_system.linear_system_solver import LinearTest
+from exercises.linear_system.rotation import Rotation
+from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
+from exercises.linear_system.vandermonde_matrix import VandermondeMatrix
 from exercises.machine_number.epsilon_machine import EpsilonMachine
 from exercises.machine_number.function_conditioning import FunctionConditioning
-from exercises.linear_system.linear_system_solver import LinearTest
 from exercises.machine_number.product_conditioning import ProductConditioning
 from exercises.machine_number.product_sum_test import ProductSumTest
 from exercises.machine_number.real_min_max import RealMinMax
-from exercises.linear_system.rotation import Rotation
-from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
 from exercises.machine_number.sum_conditioning import SumConditioning
-from exercises.linear_system.vandermonde_matrix import VandermondeMatrix
 from exercises.unlinear_equation.zero_methods import ZeroMethods
-from exercises.interpolation.unknown_coefficient import UnknownCoefficient
-from exercises.interpolation.lagrange_polynomial import LagrangePolynomial
 
 
 def epsilon_machine_calculus():
