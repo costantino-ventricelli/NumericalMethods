@@ -25,4 +25,5 @@ class NewtonInterpolation:
         self.__matrix = np.zeros((self.__n + 1, self.__n + 1))
         for i in range(self.__n + 1):
             for j in range(i + 1):
+                
 
