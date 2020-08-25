@@ -17,6 +17,8 @@ from exercises.machine_number.product_sum_test import ProductSumTest
 from exercises.machine_number.real_min_max import RealMinMax
 from exercises.machine_number.sum_conditioning import SumConditioning
 from exercises.unlinear_equation.zero_methods import ZeroMethods
+from exercises.interpolation.newton_interpolation import NewtonInterpolation
+from exercises.interpolation.chebyshev_polynomial import ChebyshevNodes
 
 
 def epsilon_machine_calculus():
@@ -238,6 +240,16 @@ def lagrange_interpolation():
         print("Selezione non valida")
 
 
+def newton_interpolation():
+    newton = NewtonInterpolation()
+    newton.approximate(np.linspace(-5, 5, 300))
+
+
+def newton_interpolation_chebyshev():
+    newton = NewtonInterpolation()
+    newton.approximate(ChebyshevNodes.get_chebyshev_nodes(-5, 5, 300))
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1)  Condizionamento somma;\n"
@@ -252,7 +264,9 @@ def main():
           "10) Sistemi lineari\n"
           "11) Equazioni non lineari\n"
           "12) Interpolazione a coefficienti ignoti\n"
-          "13) Interpolazione di lagrange")
+          "13) Interpolazione di lagrange\n"
+          "14) Interpolazione di Newton\n"
+          "15) Interpolazione di Newton con Chebyshev")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -271,7 +285,9 @@ def switch(select):
         10: linear_system,
         11: equation_solver,
         12: unknown_coefficient_interpolation,
-        13: lagrange_interpolation
+        13: lagrange_interpolation,
+        14: newton_interpolation,
+        15: newton_interpolation_chebyshev
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
