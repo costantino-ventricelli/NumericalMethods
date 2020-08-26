@@ -241,13 +241,15 @@ def lagrange_interpolation():
 
 
 def newton_interpolation():
-    newton = NewtonInterpolation()
+    newton = NewtonInterpolation(np.linspace(-5, 5, 15))
     newton.approximate(np.linspace(-5, 5, 300))
 
 
 def newton_interpolation_chebyshev():
-    newton = NewtonInterpolation()
-    newton.approximate(ChebyshevNodes.get_chebyshev_nodes(-5, 5, 300))
+    nodes = ChebyshevNodes.get_chebyshev_nodes(-5, 5, 8)
+    print(nodes)
+    newton = NewtonInterpolation(nodes)
+    newton.approximate(np.linspace(-5, 5, 300))
 
 
 def main():
