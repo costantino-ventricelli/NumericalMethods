@@ -245,19 +245,17 @@ def lagrange_interpolation():
 
 
 def newton_interpolation():
-    newton = NewtonInterpolation(np.linspace(-5, 5, 19))
-    newton.approximate(np.linspace(-5, 5, 300))
+    newton = NewtonInterpolation(np.linspace(-1, 1, 5))
 
 
 def newton_interpolation_chebyshev():
-    nodes = ChebyshevNodes.get_chebyshev_nodes(-5, 5, 20)
-    print(nodes)
+    nodes = ChebyshevNodes.get_chebyshev_nodes(-1, 1, 20)
     newton = NewtonInterpolation(nodes)
-    newton.approximate(np.linspace(-5, 5, 100))
+    newton.plot_approximation()
 
 
 def least_squares():
-    least_squares_approximation = LeastSquaresApproximation(200, -5, 5)
+    least_squares_approximation = LeastSquaresApproximation(200, -5, 2)
     least_squares_approximation.linear_regression()
 
 

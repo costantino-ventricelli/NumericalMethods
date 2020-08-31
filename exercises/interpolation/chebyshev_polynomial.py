@@ -12,7 +12,9 @@ class ChebyshevNodes:
     @staticmethod
     def get_chebyshev_nodes(start_interval, end_interval, n):
         nodes = np.zeros([n])
+        add = 0.5 * (start_interval + end_interval)
+        sub = 0.5 * (end_interval - start_interval)
         for i in range(n):
-            nodes[i] = (0.5 * (start_interval + end_interval)) + 0.5 * (start_interval - end_interval) \
-                       * np.cos(i/n * np.pi)
-        return nodes
+            cos_val = np.cos(((2 * i + 1)/(2 * n + 2)) * np.pi)
+            nodes[i] = add + (sub * cos_val)
+        return np.flip(nodes)
