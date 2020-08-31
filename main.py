@@ -4,8 +4,7 @@ import time
 import numpy as np
 from tabulate import tabulate
 
-from exercises.interpolation.lagrange_polynomial import LagrangePolynomial
-from exercises.interpolation.unknown_coefficient import UnknownCoefficient
+
 from exercises.linear_system.linear_system_solver import LinearTest
 from exercises.linear_system.rotation import Rotation
 from exercises.linear_system.substitution_algorithm import SubstitutionAlgorithm
@@ -17,8 +16,11 @@ from exercises.machine_number.product_sum_test import ProductSumTest
 from exercises.machine_number.real_min_max import RealMinMax
 from exercises.machine_number.sum_conditioning import SumConditioning
 from exercises.unlinear_equation.zero_methods import ZeroMethods
+from exercises.interpolation.lagrange_polynomial import LagrangePolynomial
+from exercises.interpolation.unknown_coefficient import UnknownCoefficient
 from exercises.interpolation.newton_interpolation import NewtonInterpolation
 from exercises.interpolation.chebyshev_polynomial import ChebyshevNodes
+from exercises.interpolation.least_squares import LeastSquareApproximation
 
 
 def epsilon_machine_calculus():
@@ -252,6 +254,10 @@ def newton_interpolation_chebyshev():
     newton.approximate(np.linspace(-5, 5, 300))
 
 
+def least_squares():
+    least_squares_approximation = LeastSquareApproximation(200, -5, 5)
+
+
 def main():
     print("Inserisci il numero del problema da richiamare:\n"
           "1)  Condizionamento somma;\n"
@@ -268,7 +274,8 @@ def main():
           "12) Interpolazione a coefficienti ignoti\n"
           "13) Interpolazione di lagrange\n"
           "14) Interpolazione di Newton\n"
-          "15) Interpolazione di Newton con Chebyshev")
+          "15) Interpolazione di Newton con Chebyshev\n"
+          "16) Regressione lineare")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -289,7 +296,8 @@ def switch(select):
         12: unknown_coefficient_interpolation,
         13: lagrange_interpolation,
         14: newton_interpolation,
-        15: newton_interpolation_chebyshev
+        15: newton_interpolation_chebyshev,
+        16: least_squares
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
