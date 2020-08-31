@@ -20,7 +20,9 @@ from exercises.interpolation.lagrange_polynomial import LagrangePolynomial
 from exercises.interpolation.unknown_coefficient import UnknownCoefficient
 from exercises.interpolation.newton_interpolation import NewtonInterpolation
 from exercises.interpolation.chebyshev_polynomial import ChebyshevNodes
-from exercises.interpolation.least_squares import LeastSquareApproximation
+from exercises.interpolation.least_squares import LeastSquaresApproximation
+from exercises.basic_quadrature.trapezoidal_rule import TrapezoidalRule
+from exercises.basic_quadrature.simpson_rule import SimpsonRule
 
 
 def epsilon_machine_calculus():
@@ -251,11 +253,36 @@ def newton_interpolation_chebyshev():
     nodes = ChebyshevNodes.get_chebyshev_nodes(-5, 5, 20)
     print(nodes)
     newton = NewtonInterpolation(nodes)
-    newton.approximate(np.linspace(-5, 5, 300))
+    newton.approximate(np.linspace(-5, 5, 100))
 
 
 def least_squares():
-    least_squares_approximation = LeastSquareApproximation(200, -5, 5)
+    least_squares_approximation = LeastSquaresApproximation(200, -5, 5)
+    least_squares_approximation.linear_regression()
+
+
+def trapezoidal_rule():
+    integral, trapezoidal, error = TrapezoidalRule.trapezoidal_classic(1, 4)
+    print("Valore dell'integrale analitico: ", integral)
+    print("Valore dell'integrale con regola classica: ", trapezoidal)
+    print("Errore: ", error)
+    integral, trapezoidal, error, n = TrapezoidalRule.trapezoidal_compose(1, 4)
+    print("Valore dell'integrale analitico: ", integral)
+    print("Valore dell'integrale con regola composta: ", trapezoidal)
+    print("Errore: ", error)
+    print("Numero cicli per ottenere il risultato: ", n)
+
+
+def simpson_rule():
+    integral, simpson, error = SimpsonRule.simpson_classic(1, 4)
+    print("Valore dell'integrale analitico: ", integral)
+    print("Valore dell'integrale con regola classica: ", simpson)
+    print("Errore: ", error)
+    integral, simpson, error, n = SimpsonRule.simpson_compose(1, 4)
+    print("Valore dell'integrale analitico: ", integral)
+    print("Valore dell'integrale con regola composta: ", simpson)
+    print("Errore: ", error)
+    print("Numero cicli per ottenere il risultato: ", n)
 
 
 def main():
@@ -275,7 +302,9 @@ def main():
           "13) Interpolazione di lagrange\n"
           "14) Interpolazione di Newton\n"
           "15) Interpolazione di Newton con Chebyshev\n"
-          "16) Regressione lineare")
+          "16) Regressione lineare\n"
+          "17) Regola del trapezio\n"
+          "18) Regola di Simpson")
     print("Inserisci la tua scelta: ")
     switch(int(input()))
 
@@ -297,7 +326,9 @@ def switch(select):
         13: lagrange_interpolation,
         14: newton_interpolation,
         15: newton_interpolation_chebyshev,
-        16: least_squares
+        16: least_squares,
+        17: trapezoidal_rule,
+        18: simpson_rule
     }
     function = switcher.get(select, lambda: "Selezione non valida")
     function()
