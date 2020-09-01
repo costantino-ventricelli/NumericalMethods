@@ -2,11 +2,11 @@
 """
     L'algoritmo di sostituzione all'indietro permette di risolvere sistemi lineari che generano matrici triangolari
     superiori:
-    a1,1x1 + a1,2x2 + a1,3x3 + a1,4x4 + ... + a1,nxn   = b1         a1,1    a1,2        a1,3        a1,4    ... a1,n
-             a2,2x2 + a2,3x3 + a2,4x4 + ... + a2,nxn   = b2         0       a2,2        a2,3        a2,4    ... a2,n
+    a1,1x1 + a1,2x2 + a1,3x3 + a1,4x4 + ... + a1,xn   = b1         a1,1    a1,2        a1,3        a1,4    ... a1,n
+             a2,2x2 + a2,3x3 + a2,4x4 + ... + a2,xn   = b2         0       a2,2        a2,3        a2,4    ... a2,n
                                         ...             ...    =    ...     ...         ...         ...     ...
-                               an-1,n-1xn-1 + an-1,nxn = bn         0       0           0           an-1,an-1   an-1,n
-                                              an,n     = bn         0       0           0           0           an,n
+                               an-1,n-1xn-1 + an-1,xn = bn         0       0           0           an-1,an-1   an-1,n
+                                              an,xn     = bn         0       0           0           0           an,n
     L'algoritmo parte trovando per primo il temine isolato an,n successivamente "risale" le righe della matrice sostitu-
     endo alle x i valori trovati.
 """

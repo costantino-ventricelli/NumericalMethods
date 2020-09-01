@@ -28,8 +28,8 @@ class EpsilonMachine:
             self.__epsilon = self.__epsilon / EpsilonMachine.__NUMERIC_BASE
         self.__epsilon = real_epsilon
 
-    #   La precisione della macchina indica il numero di cifre che compongono la mantissa nalla word contenete la cifra
-    #   nelle macchine attuali tutte le cifre saranno memorizzate di default a doppia precisione, quindi con 64bit,
+    #   La precisione della macchina indica il numero di cifre che compongono la mantissa nalla word contenete la cifra.
+    #   Nelle macchine attuali tutte le cifre saranno memorizzate di default a doppia precisione, quindi con 64bit,
     #   il risultato di questo calcolo dovrebbe essere 53.
     def find_precision(self):
         self.__precision = np.rint(1 - (np.log(self.__epsilon) / np.log(EpsilonMachine.__NUMERIC_BASE)))
