@@ -15,15 +15,15 @@ class ProductConditioning:
         self.__perturbation = perturbation
         self.__first_perturbed = self.__first_number + self.__perturbation
         self.__second_perturbed = self.__second_number + self.__perturbation
-        self.__perturbed_sum = self.__first_perturbed + self.__second_perturbed
-        self.__normal_sum = self.__first_number + self.__second_number
+        self.__perturbed_product = self.__first_perturbed * self.__second_perturbed
+        self.__normal_product = self.__first_number * self.__second_number
 
     def get_absolute_error_product(self):
-        return np.abs(self.__perturbed_sum - self.__normal_sum)
+        return np.abs(self.__perturbed_product - self.__normal_product)
 
     def get_relative_error_product(self):
-        if self.__normal_sum != 0:
-            return np.abs(self.__perturbed_sum - self.__normal_sum) / np.abs(self.__perturbed_sum)
+        if self.__normal_product != 0:
+            return np.abs(self.__perturbed_product - self.__normal_product) / np.abs(self.__perturbed_product)
         else:
             return 0
 
