@@ -148,37 +148,37 @@ def linear_system():
     solution, absolute, relative = linear_test.std_vandermonde_matrix_gauss()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
-    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("Relative: ", relative, "\n")
     print("HILBERT MATRIX CON METODO DI GAUSS")
     start_time = time.time()
     solution, absolute, relative = linear_test.std_hilbert_matrix_gauss()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
-    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("Relative: ", relative, "\n")
     print("VANDERMONDE MATRIX CON FATTORIZZAZIONE LU")
     start_time = time.time()
     solution, absolute, relative = linear_test.std_vandermonde_matrix_lu()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
-    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("Relative: ", relative, "\n")
     print("HILBERT MATRIX CON FATTORIZZAZIONE LU")
     start_time = time.time()
     solution, absolute, relative = linear_test.std_hilbert_matrix_lu()
     total_time = (time.time() - start_time)
     print("Tempo di esecuzione: ", total_time)
-    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("Relative: ", relative, "\n")
     print("METODO ITERATIVO DI JACOBI")
     start_time = time.time()
     solution, absolute, relative = linear_test.std_jacobi()
     total_time = time.time() - start_time
     print("Tempo di esecuzione: ", total_time)
-    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("Relative: ", relative, "\n")
     print("METODO ITERATIVO DI GAUSS-SEIDEL")
     start_time = time.time()
     solution, absolute, relative = linear_test.std_gauss_seidel()
     total_time = time.time() - start_time
     print("Tempo di esecuzione: ", total_time)
-    print("Soluzione: ", solution, "\nErrore assoluto: ", absolute, "\nRelative: ", relative, "\n")
+    print("Relative: ", relative, "\n")
 
 
 def equation_solver():
@@ -245,7 +245,8 @@ def lagrange_interpolation():
 
 
 def newton_interpolation():
-    newton = NewtonInterpolation(np.linspace(-1, 1, 5))
+    newton = NewtonInterpolation(np.linspace(-1, 1, 20))
+    newton.plot_approximation()
 
 
 def newton_interpolation_chebyshev():

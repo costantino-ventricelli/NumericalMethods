@@ -44,6 +44,6 @@ class UnknownCoefficient:
         label_f = "f(x)"
         plot.plot(self.__x_val, self.__polynomial_val, label=label_p)
         plot.plot(self.__x_val, self.__polynomial_val_perturbed, label="perturbed")
-        plot.figure(1)
         plot.plot(self.__x_val, self.__fx, label=label_f)
+        plot.legend()
         plot.show()
